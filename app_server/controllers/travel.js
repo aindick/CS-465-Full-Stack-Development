@@ -1,5 +1,5 @@
 const travel = (req, res) => {
-    let pageTitle = process.env.npm_package_description + " - Travel";
+    pageTitle = process.env.MONGO_ATLAS_PW + " - Travel"; //MONGO_ATLUS_PW helped with getting the pageTitle var to work
     res.render('travel', {title: pageTitle});
 
 };
