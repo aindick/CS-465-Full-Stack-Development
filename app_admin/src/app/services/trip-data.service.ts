@@ -1,14 +1,17 @@
 import { Injectable, Inject } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-
+import { BROWSER_STORAGE } from "../storage";
 import { Trip } from "../models/trip";
 
 
 @Injectable()
 export class TripDataService {
   constructor(
-    private http: Http
+    private http: Http,
+    @Inject(BROWSER_STORAGE) private storage: Storage
   ) {}
+
+
 
   private apiBaseUrl = "http://localhost:3000/api/";
   private tripUrl = `${this.apiBaseUrl}trips/`;
@@ -56,11 +59,17 @@ export class TripDataService {
       .then((response) => response.json() as Trip[])
       .catch(this.handleError);
   }
-
-  private handleError(error: any): Promise<any> {
-    console.error("Something has gone wrong", error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  public deleteTrip(tripCode: string): Promise<Trip> {
+    console.log("Inside TripDataService#deleteTrip");
+    return this.http    
+      .delete(this.tripUrl + tripCode)
+      .toPromise()
+      .then((response) => response.json() as Trip)
+      .catch(this.handleError);
   }
 
-
+  private handleError(error: any): Promise<any> {
+    console.error("Something has gone wrong BTH", error);
+    return Promise.reject(error.message || error);
+  }
 }

@@ -32,13 +32,16 @@ const travelList = (req, res) => {
   };
 
   console.info(" >> travelcontroller.travelList calling" + requestOptions.url);
-  request(requestOptions, (err, { statusCode }, body) => {
-    if (err) {
-      console.error(err);
-    }
-    renderTravelList(req, res, body);
+  request(
+      requestOptions, 
+      (err, { statusCode }, body) => {
+          if (err) {
+              console.error(err);
+          }
+      renderTravelList(req, res, body);
   });
 };
+
 
 module.exports = {
   travelList,

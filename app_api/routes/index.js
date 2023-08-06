@@ -4,13 +4,17 @@ const router = express.Router();
 const tripsController = require("../controllers/trips");
 
 router
-  .route("/trips")
-  .get(tripsController.tripsList)
-  .post(tripsController.tripsAddTrip)
-router
-  .route("/trips/:tripCode")
-  .get(tripsController.tripsList)
-  .put(tripsController.tripsUpdateTrip);
+    .route("/trips")
+    .get(tripsController.tripsList)
+    .post(tripsController.tripsAddTrip);
+
+//route for updating and deleteing
+ router
+     .route("/trips/:tripCode")
+     .get(tripsController.tripsFindByCode)
+     .delete(tripsController.tripsDeleteTrip)
+     .put(tripsController.tripsUpdateTrip);
+
 
  
   module.exports = router;
